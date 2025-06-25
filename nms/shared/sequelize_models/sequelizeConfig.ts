@@ -15,16 +15,16 @@ import fs from 'fs';
 import {getLogger} from '../../shared/logging';
 import type {Dialect, Options} from 'sequelize';
 
-// TODO: Pull from shared config
-const MYSQL_HOST = process.env.MYSQL_HOST || '127.0.0.1';
-const MYSQL_PORT = parseInt(process.env.MYSQL_PORT || '3306');
-const MYSQL_USER = process.env.MYSQL_USER || 'root';
-const MYSQL_PASS = process.env.MYSQL_PASS || '';
-const MYSQL_DB = process.env.MYSQL_DB || 'cxl';
-const MYSQL_DIALECT: Dialect =
-  (process.env.MYSQL_DIALECT as Dialect) || 'mysql';
+// ? Use PostgreSQL Docker service
+const DB_HOST = process.env.DB_HOST || 'postgres';
+const DB_PORT = parseInt(process.env.DB_PORT || '5432');
+const DB_USER = process.env.DB_USER || 'postgres';
+const DB_PASS = process.env.DB_PASS || 'postgres';
+const DB_NAME = process.env.DB_NAME || 'nms';
+const DB_DIALECT: Dialect = 'postgres';
 
 const logger = getLogger(module);
+
 let ssl_required = false;
 let CAcert: string | Buffer | undefined = process.env.CA_FILE;
 let Ckey: string | Buffer | undefined = process.env.KEY_FILE;
@@ -78,23 +78,23 @@ const config: {[config: string]: Options} = {
     storage: ':memory:',
   },
   development: {
-    username: MYSQL_USER,
-    password: MYSQL_PASS,
-    database: MYSQL_DB,
-    host: MYSQL_HOST,
-    port: MYSQL_PORT,
-    dialect: MYSQL_DIALECT,
+    username: DB_USER,
+    password: DB_PASS,
+    database: DB_NAME,
+    host: DB_HOST,
+    port: DB_PORT,
+    dialect: DB_DIALECT,
     ssl: ssl_required,
     dialectOptions,
     logging: (msg: string) => logger.debug(msg),
   },
   production: {
-    username: MYSQL_USER,
-    password: MYSQL_PASS,
-    database: MYSQL_DB,
-    host: MYSQL_HOST,
-    port: MYSQL_PORT,
-    dialect: MYSQL_DIALECT,
+    username: DB_USER,
+    password: DB_PASS,
+    database: DB_NAME,
+    host: DB_HOST,
+    port: DB_PORT,
+    dialect: DB_DIALECT,
     ssl: ssl_required,
     dialectOptions,
     logging: (msg: string) => logger.debug(msg),
