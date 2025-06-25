@@ -8,7 +8,7 @@ if [ ! -d "$HOME/magma/.cache/test_certs" ]; then
 fi
 
 sudo mkdir -p /var/opt/magma/certs/
-sudo cp -r ~/magma/.cache/test_certs/* /var/opt/magma/certs/
+sudo cp -r /home/ubuntu/magma/.cache/test_certs/* /var/opt/magma/certs/
 sudo chmod -R 777 /var/opt/magma/certs/
 
 echo "✅ Certificates copied!"

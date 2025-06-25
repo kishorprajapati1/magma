@@ -2,7 +2,7 @@
 set -e
 echo "📊 Starting Orchestrator metrics services..."
 
-cd ~/magma/orc8r/cloud/docker
-./run.py --metrics
+cd /home/ubuntu/magma/orc8r/cloud/docker
+python3 ./run.py --metrics
 
 echo "✅ Metrics services started!"
